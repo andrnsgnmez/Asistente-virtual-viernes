@@ -19,10 +19,10 @@ voices = engine.getProperty('voices')
 # Declaración de los elementos de la ventana principal
 main_window = Tk()
 main_window.title("Viernes IA")
-#main_window.iconbitmap("icono.ico")
-#main_window.geometry("800x500")
-#main_window.configure(bg="#FFFFFF")
-#main_window.resizable(0, 0)
+main_window.iconbitmap("icono.ico")
+main_window.geometry("800x500")
+main_window.configure(bg="#FFFFFF")
+main_window.resizable(0, 0)
 #Texto a mostrar de comandos 
 comandos = """ 
     Comandos que puedes usar:
@@ -156,9 +156,9 @@ def run_viernes():
             talk(wiki)
             write_text(search + ": " + wiki)
             break
-        elif 'alarma' in rec:
-            ta = tr.Thread(target=clock, args=(rec,))
-            ta.start()
+        # elif 'alarma' in rec:
+        #     ta = tr.Thread(target=clock, args=(rec,))
+        #     ta.start()
         elif 'abre' in rec:
             task = rec.replace('abre', '')
             task = task.strip()
@@ -215,25 +215,25 @@ def write(f):
     talk("Listo, puedes revisarlo")
     sub.Popen("nota.txt", shell=True)
 # Función del despertador (esto para usar hilos)
-def clock(rec):
-    num = rec.replace('alarma', '')
-    num = num.strip()
-    talk("Alarma activada a las " + num + " horas")
-    if num[0] != '0' and len(num) < 5:
-        num = '0' + num
-    while True:
-        if datetime.datetime.now().strftime('%H:%M') == num:
-            mixer.init()
-            mixer.music.load("alarma-auronplay.mp3")
-            mixer.music.play()
-        else:
-            continue
-        if keyboard.read_key() == "s":
-            mixer.music.stop()
-            break
-# Función para detener el despertador
-def stop_music():
-    mixer.music.stop()
+# def clock(rec):
+#     num = rec.replace('alarma', '')
+#     num = num.strip()
+#     talk("Alarma activada a las " + num + " horas")
+#     if num[0] != '0' and len(num) < 5:
+#         num = '0' + num
+#     while True:
+#         if datetime.datetime.now().strftime('%H:%M') == num:
+#             mixer.init()
+#             mixer.music.load("alarma-auronplay.mp3")
+#             mixer.music.play()
+#         else:
+#             continue
+#         if keyboard.read_key() == "s":
+#             mixer.music.stop()
+#             break
+# # Función para detener el despertador
+# def stop_music():
+#     mixer.music.stop()
 # Ventanas para agregar cosas
 def open_file_window():
     global namef_entry, rutef_entry
@@ -346,8 +346,8 @@ button_voice3 = Button(main_window, text="Voz USA", bg='#FF0000', fg="white", fo
     .place(x=645, y=160, height=30, width=100)
 button_speak = Button(main_window, text="Hablar", bg='#FFFFFF', fg="black", font=('Arial', 10, 'bold'), command=read_talk) \
     .place(x=645, y=195, height=30, width=100)
-button_stop = Button(main_window, text="Deten alarma", bg='#FFFFFF', fg="black", font=('Arial', 10, 'bold'), command=stop_music) \
-    .place(x=645, y=230, height=30, width=100)
+# button_stop = Button(main_window, text="Deten alarma", bg='#FFFFFF', fg="black", font=('Arial', 10, 'bold'), command=stop_music) \
+#     .place(x=645, y=230, height=30, width=100)
 button_files = Button(main_window, text="Agregar archivos", bg='#FF0000', fg="white", font=('Arial', 10, 'bold'), command=open_file_window) \
     .place(x=630, y=300, height=30, width=130)
 button_web = Button(main_window, text="Agregar páginas", bg='#FF0000', fg="white", font=('Arial', 10, 'bold'), command=open_page_window) \
@@ -356,6 +356,8 @@ button_apps = Button(main_window, text="Agregar apps", bg='#FF0000', fg="white",
     .place(x=630, y=370, height=30, width=130)
 button_listen = Button(main_window, text="Escuchar", bg='#FFFFFF', fg="black", height=2, width=30, font=('Arial', 10, 'bold'), command= run_viernes) \
     .place(x=290, y=440)
+button_listen = Button(main_window, text="By Andrés Gómez", bg='#FFFFFF', fg="black", height=2, width=20, font=('Arial', 10, 'bold'),) \
+    .place(x=630, y=440)
 button_add_f = Button(main_window, text="Archivos agregados", bg='#FF0000', fg="white", font=('Arial', 7, 'bold'), command=talk_files) \
     .place(x=235, y=405, height=30, width=100)
 button_add_p = Button(main_window, text="Páginas agregadas", bg='#FF0000', fg="white", font=('Arial', 7, 'bold'), command=talk_sites) \
